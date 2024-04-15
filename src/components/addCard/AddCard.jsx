@@ -7,7 +7,9 @@ function AddCard({fetchData}) {
 
     const [formData, setFormData] = useState({
         description: '',
-        title: ''
+        title: '',
+        liked:0,
+        unliked:0
       });
 
       const [errors, setErrors] = useState({
@@ -44,8 +46,10 @@ function AddCard({fetchData}) {
           fetchData();
           // Clear form fields after successful submission
           setFormData({
+            description: '',
             title: '',
-            description: ''
+            liked:0,
+            unliked:0
           });
 
         } catch (error) {
@@ -90,8 +94,10 @@ function AddCard({fetchData}) {
         if (validateForm()) {
           handleSubmit(formData);
           setFormData({
+            description: '',
             title: '',
-            description: ''
+            liked:0,
+            unliked:0
           });
         }
       };

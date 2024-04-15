@@ -4,6 +4,7 @@ import Title from '../title/Title'
 import List from '../list/List'
 import  axios from 'axios';
 import AddCard from '../addCard/AddCard';
+import BlogsBox from '../blogsBox/BlogsBox';
 function Content() {
 
   const [contentData, setContentData] = useState([]);
@@ -25,11 +26,13 @@ function Content() {
   return (
     <section className={styles.content}>
         <Title/>
-        <List contentData={contentData} setContentData={setContentData}/>
+        <BlogsBox contentData={contentData}/>
+        <List contentData={contentData} setContentData={setContentData} fetchData={fetchData}/>
         <AddCard contentData={contentData} setContentData={setContentData} fetchData={fetchData}/>
     </section>
 
   )
 }
+
 
 export default Content
