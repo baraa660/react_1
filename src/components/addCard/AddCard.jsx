@@ -1,9 +1,10 @@
 import React , {useState} from 'react'
-import axios from 'axios';
+
 import styles from './AddCard.module.css'
 import Input from '../shared/Input';
+import BlogsServices from '../../services/Blogs'
 
-function AddCard({fetchData}) {
+function AddCard({setContentData}) {
 
     const [formData, setFormData] = useState({
         description: '',
@@ -32,30 +33,7 @@ function AddCard({fetchData}) {
 
 
     
-      const handleSubmit = async (e) => {
-          
-        try {
-          await axios.post('http://localhost:3000/blogs', formData);
-
-          /*
-          i fetched data and not just updated directly on contentdata array like updatedCards 
-          in deleteCards because if i pushed formData to array it will push it without the id, 
-          and when fetch it will update the contentdata and get formData with id, this help me if 
-          i wanted to delete formData after add it because i need the id to delete.
-          */
-          fetchData();
-          // Clear form fields after successful submission
-          setFormData({
-            description: '',
-            title: '',
-            liked:0,
-            unliked:0
-          });
-
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
+      
 
       const validateForm = () => {
         let valid = true;
@@ -92,7 +70,7 @@ function AddCard({fetchData}) {
       const submitForm = (e) => {
         e.preventDefault();
         if (validateForm()) {
-          handleSubmit(formData);
+          BlogsServices.handleSubmit(formData,setContentData, setFormData);
           setFormData({
             description: '',
             title: '',
