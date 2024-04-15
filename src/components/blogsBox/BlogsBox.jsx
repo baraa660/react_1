@@ -16,10 +16,10 @@ function BlogsBox({contentData}) {
     <div className={styles.blog_container}>
     <div className={styles.blog_box}>
       <div className={styles.count_container}>
-        <span className={styles.count}>Likes: {totalLikes}</span>
+        <span className={styles.count}>Liked blogs: {totalLikes}</span>
       </div>
       <div className={styles.count_container}>
-        <span className={styles.count}>Unlikes: {totalUnlikes}</span>
+        <span className={styles.count}>Unliked blogs: {totalUnlikes}</span>
       </div>
     </div>
     </div>

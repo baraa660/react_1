@@ -2,7 +2,7 @@ import React ,{useState,useEffect} from 'react'
 import styles from './Content.module.css'
 import Title from '../title/Title'
 import List from '../list/List'
-import  axios from 'axios';
+
 import AddCard from '../addCard/AddCard';
 import BlogsBox from '../blogsBox/BlogsBox';
 import BlogsServices from '../../services/Blogs'

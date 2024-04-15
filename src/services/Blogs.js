@@ -13,7 +13,7 @@ import axios from 'axios';
         }
       }
 
-      static async handleSubmit(formData, setContentData, setFormData) {
+      static async handleSubmit(formData, setContentData) {
         try {
           await axios.post('http://localhost:3000/blogs', formData);
     
@@ -26,13 +26,6 @@ import axios from 'axios';
           const data = await this.fetchData();
           setContentData(data);
     
-          // Clear form fields after successful submission
-          setFormData({
-            description: '',
-            title: '',
-            liked: 0,
-            unliked: 0
-          });
         } catch (error) {
           console.error('Error:', error);
         }

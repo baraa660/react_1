@@ -1,84 +1,40 @@
-import React , {useState} from 'react'
+import React  from 'react'
 
 import styles from './AddCard.module.css'
 import Input from '../shared/Input';
 import BlogsServices from '../../services/Blogs'
+import {useFormik} from 'formik';
+import {addBlogSchema} from '../validation/Validate'
 
 function AddCard({setContentData}) {
 
-    const [formData, setFormData] = useState({
-        description: '',
-        title: '',
-        liked:0,
-        unliked:0
-      });
+  const initialValues = {
+    title: '',
+    description: '',
+    liked:0,
+    unliked:0
+  };
 
-      const [errors, setErrors] = useState({
-        title: '',
-        description: ''
-      });
-    
-      const handleChange = (e) => {
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      await BlogsServices.handleSubmit(values, setContentData);
+      resetForm();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
 
-        setFormData({
-          ...formData,
-          [e.target.name]: e.target.value
-        });
-
-        setErrors({
-          ...errors,
-          [e.target.name]: ''
-        });
-      };
+  const formik = useFormik({
+    initialValues,
+    onSubmit: handleSubmit,
+    validationSchema:addBlogSchema,
+  });
 
 
-    
       
 
-      const validateForm = () => {
-        let valid = true;
+     
       
-        if (!formData.title.trim() || formData.title.trim().length > 50 || !/^[A-Z]/.test(formData.title.trim())) {
-          setErrors(prevErrors => ({
-            ...prevErrors,
-            title: 'Title must start with a capital letter and be between 1 and 50 characters'
-          }));
-          valid = false;
-        } else {
-          setErrors(prevErrors => ({
-            ...prevErrors,
-            title: ''
-          }));
-        }
-      
-        if (!formData.description.trim() || formData.description.trim().length > 500) {
-          setErrors(prevErrors => ({
-            ...prevErrors,
-            description: 'Description must be between 1 and 500 characters'
-          }));
-          valid = false;
-        } else {
-          setErrors(prevErrors => ({
-            ...prevErrors,
-            description: ''
-          }));
-        }
-      
-        return valid;
-      };
-    
-      const submitForm = (e) => {
-        e.preventDefault();
-        if (validateForm()) {
-          BlogsServices.handleSubmit(formData,setContentData, setFormData);
-          setFormData({
-            description: '',
-            title: '',
-            liked:0,
-            unliked:0
-          });
-        }
-      };
     
 
   return (
@@ -86,26 +42,36 @@ function AddCard({setContentData}) {
       <h2>Add New Card</h2>
       <br />
       <br />
-      <form className={styles.dataForm} id="dataForm" onSubmit={submitForm}>
+      <form className={styles.dataForm} id="dataForm" onSubmit={formik.handleSubmit}>
       <Input
           id="title"
           name="title"
           type="text"
           maxLength={50}
-          value={formData.title}
-          onChange={handleChange}
-          error={errors.title}
+          value={formik.values.title}
+          errors={formik.errors}
+          onblur={formik.handleBlur}
+          onchange={formik.handleChange}
+          touched={formik.touched}
         />
         <Input
           id="description"
           name="description"
           type="textarea"
-          value={formData.description}
-          onChange={handleChange}
-          error={errors.description}
+          value={formik.values.description}
+          errors={formik.errors}
+          onblur={formik.handleBlur}
+          onchange={formik.handleChange}
+          touched={formik.touched}
         />
         <br />
-        <input type="submit" value="Submit" />
+        {
+        //formik.dirty indicates whether any field in the form has been touched.
+        /*i added formik.dirty due to the initial render maybe occurring before Formik
+         has had a chance to run its validation checks (maybe i think)
+         */
+        }
+        <input type="submit" value="Submit" disabled={!formik.isValid || !formik.dirty} />
       </form>
     </section>
   );
