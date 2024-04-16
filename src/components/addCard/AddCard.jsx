@@ -1,10 +1,8 @@
 import React  from 'react'
-
 import styles from './AddCard.module.css'
 import Input from '../shared/Input';
 import BlogsServices from '../../services/Blogs'
-import {useFormik} from 'formik';
-import {addBlogSchema} from '../validation/Validate'
+import useFormSubmission from '../useFormSubmission/useFormSubmission'
 
 function AddCard({setContentData}) {
 
@@ -15,27 +13,11 @@ function AddCard({setContentData}) {
     unliked:0
   };
 
-  const handleSubmit = async (values, { resetForm }) => {
-    try {
-      await BlogsServices.handleSubmit(values, setContentData);
-      resetForm();
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
+  const onSubmitCallback = async (values) => {
+    await BlogsServices.handleSubmit(values, setContentData);
   };
 
-  const formik = useFormik({
-    initialValues,
-    onSubmit: handleSubmit,
-    validationSchema:addBlogSchema,
-  });
-
-
-      
-
-     
-      
-    
+  const { formik } = useFormSubmission(initialValues, onSubmitCallback);   //custom hook 
 
   return (
     <section className={styles.form_section}>
