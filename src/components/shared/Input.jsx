@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Input.module.css'
-function Input({ id, name, type, maxLength, value, onChange, error }) {
+function Input({ id, name, type, maxLength, value, onchange, errors, onblur, touched }) {
   return (
     <div>
       <label htmlFor={id}>{name}</label>
@@ -12,9 +12,12 @@ function Input({ id, name, type, maxLength, value, onChange, error }) {
           id={id}
           name={name}
           value={value}
-          onChange={onChange}
+          onChange={onchange}
+          onBlur={onblur}
         />
-        {error && <p className={styles.error}>{error}</p>}
+        {touched[name]&&errors[name]&&<p className={styles.error}>{errors[name]}</p>
+        //error && <p className={styles.error}>{error}</p>
+        }
         <br />
     </div>
   )
