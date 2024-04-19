@@ -22,8 +22,8 @@ function List({contentData , setContentData }) {
               <p>{card.description}</p>
               {card.liked===0 && card.unliked===0 ?
                 <div>
-                <button className={styles.like_button}><img src={like} alt=""  onClick={() => BlogsServices.handleLike(card.id,setContentData)}/></button>
-                <button className={styles.like_button}><img src={dislike} alt="" width={15} height={15} onClick={() => BlogsServices.handleDisLike(card.id,setContentData)} /></button>
+                <button className={styles.like_button}><img src={like} alt=""  onClick={() => BlogsServices.handleLike(card.id,setContentData,contentData)}/></button>
+                <button className={styles.like_button}><img src={dislike} alt="" width={15} height={15} onClick={() => BlogsServices.handleDisLike(card.id,setContentData,contentData)} /></button>
                 </div>
               
               :card.liked===1?

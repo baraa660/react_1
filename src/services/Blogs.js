@@ -1,9 +1,9 @@
 
 import axios from 'axios';
- 
+
  class BlogsServices{
 
-    static async fetchData() {
+    static async fetchData() {  
         try {
           const response = await axios.get('http://localhost:3000/blogs');
           return response.data;
@@ -13,7 +13,7 @@ import axios from 'axios';
         }
       }
 
-      static async handleSubmit(formData, setContentData) {
+      static async handleSubmit(formData, setContentData) {   
         try {
           await axios.post('http://localhost:3000/blogs', formData);
     
@@ -42,61 +42,50 @@ import axios from 'axios';
         }
       }
 
-      static async handleLike(id, setContentData) {
+      static async handleLike(id, setContentData, contentData) {
         const url = `http://localhost:3000/blogs/${id}`;
-        const newData = {
-          liked: 1 
-        };
-    
-        // PATCH request options
-        const requestOptions = {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(newData)
-        };
-    
         try {
-          const response = await fetch(url, requestOptions);
-    
-          if (!response.ok) {
+          const response = await axios.patch(url,  {
+            liked:1
+          });
+        
+          if (response.status !== 200) {
             throw new Error('Failed to update card.');
           }
-    
-          // Update contentData after successful update
-          const data = await this.fetchData();
-          setContentData(data);
+
+          //get the index of this ID
+          const index = contentData.findIndex(obj => obj.id === id)
+
+          contentData[index].liked = 1;
+
+          // the value updated but react will detect it only If I changed it with setcontentdata
+          setContentData([...contentData]);
+          
         } catch (error) {
           console.error('Error updating card:', error);
         }
       }
 
-      static async handleDisLike(id, setContentData) {
+      static async handleDisLike(id, setContentData , contentData) {
+        
         const url = `http://localhost:3000/blogs/${id}`;
-        const newData = {
-          unliked: 1 
-        };
-    
-        // PATCH request options
-        const requestOptions = {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(newData)
-        };
-    
         try {
-          const response = await fetch(url, requestOptions);
-    
-          if (!response.ok) {
+          const response = await axios.patch(url,  {
+            unliked:1
+          });
+        
+          if (response.status !== 200) {
             throw new Error('Failed to update card.');
           }
-    
-          // Update contentData after successful update
-          const data = await this.fetchData();
-          setContentData(data);
+
+          //get the index of this ID
+          const index = contentData.findIndex(obj => obj.id === id)
+
+          contentData[index].unliked = 1;
+
+          // the value updated but react will detect it only If I changed it with setcontentdata
+          setContentData([...contentData]);
+          
         } catch (error) {
           console.error('Error updating card:', error);
         }

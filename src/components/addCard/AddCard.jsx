@@ -17,34 +17,34 @@ function AddCard({setContentData}) {
     await BlogsServices.handleSubmit(values, setContentData);
   };
 
-  const { formik } = useFormSubmission(initialValues, onSubmitCallback);   //custom hook 
+  const {values,errors,onBlur,onChange,touched,onSubmit,isValid,isDirty} = useFormSubmission(initialValues, onSubmitCallback);   //custom hook 
 
   return (
     <section className={styles.form_section}>
       <h2>Add New Card</h2>
       <br />
       <br />
-      <form className={styles.dataForm} id="dataForm" onSubmit={formik.handleSubmit}>
+      <form className={styles.dataForm} id="dataForm" onSubmit={onSubmit}>
       <Input
           id="title"
           name="title"
           type="text"
           maxLength={50}
-          value={formik.values.title}
-          errors={formik.errors}
-          onblur={formik.handleBlur}
-          onchange={formik.handleChange}
-          touched={formik.touched}
+          value={values.title}
+          errors={errors}
+          onblur={onBlur}
+          onchange={onChange}
+          touched={touched}
         />
         <Input
           id="description"
           name="description"
           type="textarea"
-          value={formik.values.description}
-          errors={formik.errors}
-          onblur={formik.handleBlur}
-          onchange={formik.handleChange}
-          touched={formik.touched}
+          value={values.description}
+          errors={errors}
+          onblur={onBlur}
+          onchange={onChange}
+          touched={touched}
         />
         <br />
         {
@@ -53,7 +53,7 @@ function AddCard({setContentData}) {
          has had a chance to run its validation checks (maybe i think)
          */
         }
-        <input type="submit" value="Submit" disabled={!formik.isValid || !formik.dirty} />
+        <input type="submit" value="Submit" disabled={!isValid || !isDirty} />
       </form>
     </section>
   );

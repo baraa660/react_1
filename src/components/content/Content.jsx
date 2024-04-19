@@ -6,6 +6,7 @@ import List from '../list/List'
 import AddCard from '../addCard/AddCard';
 import BlogsBox from '../blogsBox/BlogsBox';
 import BlogsServices from '../../services/Blogs'
+
 function Content() {
 
   const [contentData, setContentData] = useState([]);
