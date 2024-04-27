@@ -1,9 +1,9 @@
-.list .list_item .list_content a{
+ .list_item .list_content a{
     text-decoration: none;
     color: #444;
 }
 
-.list .list_item .item_desc{
+ .list_item .item_desc{
     padding: 15px;
 }
 
@@ -15,13 +15,13 @@
   
 }
 
-.list .list_item .item_desc a {
+ .list_item .item_desc a {
   margin-left: 20px;
   transition: transform 0.2s ease-in-out;
   
 }
 
-.list .list_item .item_desc a:hover{
+ .list_item .item_desc a:hover{
   transform: scale(1.2);
 }
 
@@ -29,29 +29,25 @@
   display: flex;
   justify-content: space-between; 
   align-items: flex-start; 
-  margin-top: 20px;
-}
-
-.list .list_item .item_desc p a {
-  color: black;
-  font-weight: bold;
-  margin-left: 5px;
 }
 
 .list{
     display: flex;
     flex-wrap: wrap;
     justify-content:space-between;
-    margin-bottom: 50px;
 }
 
 
 
-.list .list_item{
-    width: 31%;
+.list_item{
+   
+    margin-top: 53px;
+    margin-bottom: 1220px;
+    max-width:60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 10px;
     background-color: #ffffff8c;
-    margin-top: 30px;
-    margin-bottom: 10px;
     border-radius: 10px;
 }
 
@@ -72,6 +68,7 @@
     transition: background-color 0.3s ease; 
     text-align: center;
     margin-right: 5px;
+    
 }
 
 .delete_btn:hover {
@@ -124,8 +121,9 @@
     opacity: 0.2;
   }
 
-  .pagination{
+  .empty{
     text-align: center;
+    margin-top: 53px;
   }
 
 @media only screen and (max-width: 767px) {

@@ -1,14 +1,16 @@
 import { useFormik } from 'formik';
 import { addBlogSchema } from '../validation/Validate';
+import { useNavigate } from "react-router-dom";
 
 function useFormSubmission(initialValues, onSubmitCallback) {
-  
+  const navigate = useNavigate();
 
   const handleSubmit = async (values, formikBag) => {
     
     try {
       await onSubmitCallback(values);
       formikBag.resetForm();
+      navigate('/blogs');
     } catch (error) {
       console.error('Error submitting form:', error);
     } finally {

@@ -21,8 +21,7 @@ function AddCard({setContentData}) {
 
   return (
     <section className={styles.form_section}>
-      <h2>Add New Card</h2>
-      <br />
+      
       <br />
       <form className={styles.dataForm} id="dataForm" onSubmit={onSubmit}>
       <Input

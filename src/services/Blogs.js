@@ -37,6 +37,7 @@ import axios from 'axios';
           await axios.delete(`http://localhost:3000/blogs/${id}`);
           const updatedCards = contentData.filter(card => card.id !== id);
           setContentData(updatedCards);
+          
         } catch (error) {
           console.error('Error:', error);
         }
@@ -91,8 +92,31 @@ import axios from 'axios';
         }
       }
 
+      static async handleEditBlog(id, formData, setContentData, contentData) {  
+        const url = `http://localhost:3000/blogs/${id}`; 
 
-    }
+       try {
+          const response = await axios.patch(url,formData);
+          if (response.status !== 200) {
+            throw new Error('Failed to update card.');
+          }
+
+          //get the index of this ID
+          const index = contentData.findIndex(obj => obj.id === id)
+          
+          contentData[index] = {...formData,id:id};
+
+          // the value updated but react will detect it only If I changed it with setcontentdata
+          setContentData([...contentData]);
+
+          
+        } catch (error) {
+          console.error('Error updating card:', error);
+        }
+
+
+
+    }}
 
     export default BlogsServices;
 

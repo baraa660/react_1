@@ -1,34 +1,29 @@
 import React from 'react'
 import styles from './Header.module.css'
 import dropdown from '../../svg/drop-down.svg'
+import { Link } from 'react-router-dom'
 function Header() {
   return (
     <div>
       <header className={styles.header}>
   <div className={styles.header_content}>
     <div className={styles.logo}>
-      <img src="onextrapixel.webp" alt="page icon" />
+      <img src="/onextrapixel.webp" alt="page icon" />
       <img src="" alt="" />
     </div>
     <nav className={styles.menu}>
       <ul>
         <li>
-          <a href="#">
-            CATEGORIES
+          <Link to='/blogs'>
+            BLOGS
             <span ><img src={dropdown} alt="" width={10}/></span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#">
-            DEALS
+          <Link to='/addBlog'>
+            ADD NEW BLOG
             <span ><img src={dropdown} alt="" width={10}/></span>
-          </a>
-        </li>
-        <li>
-          <a href="#">ABOUT</a>
-        </li>
-        <li>
-          <a href="#">ADVERTISE</a>
+          </Link>
         </li>
       </ul>
     </nav>

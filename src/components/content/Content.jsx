@@ -6,6 +6,9 @@ import List from '../list/List'
 import AddCard from '../addCard/AddCard';
 import BlogsBox from '../blogsBox/BlogsBox';
 import BlogsServices from '../../services/Blogs'
+import { Route, Routes } from 'react-router-dom';
+import Blog from '../blog/Blog';
+import EditBlog from '../editBlog/EditBlog';
 
 function Content() {
 
@@ -24,10 +27,45 @@ function Content() {
 
   return (
     <section className={styles.content}>
-        <Title/>
-        <BlogsBox contentData={contentData}/>
-        <List contentData={contentData} setContentData={setContentData} />
-        <AddCard contentData={contentData} setContentData={setContentData} />
+         <Routes>
+        <Route path="/" element={
+          <>
+            <Title  data={'Blogs'}/>
+            <BlogsBox contentData={contentData} />
+            <List contentData={contentData} setContentData={setContentData} />
+          </>
+        } />
+
+        <Route path="/blogs" element={
+          <>
+          <Title data={'Blogs'}/>
+          <BlogsBox contentData={contentData} />
+          <List contentData={contentData} setContentData={setContentData} />
+        </>
+        } />
+       
+        <Route path="/addBlog" element={
+          <>
+          <Title data={'Add Blog'}/>
+          <AddCard contentData={contentData} setContentData={setContentData} />
+          </>
+          
+        } />
+
+        <Route path="/blog/:id" element={
+          <>
+          <Blog contentData={contentData} setContentData={setContentData}/>
+        </>
+        } />
+
+        <Route path="/editBlog/:id" element={
+          <>
+          <Title data={'Edit Blog'}/>
+          <EditBlog contentData={contentData} setContentData={setContentData} />
+          </>
+          
+        } />
+      </Routes>
     </section>
 
   )
