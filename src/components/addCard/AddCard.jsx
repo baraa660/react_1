@@ -3,8 +3,11 @@ import styles from './AddCard.module.css'
 import Input from '../shared/Input';
 import BlogsServices from '../../services/Blogs'
 import useFormSubmission from '../useFormSubmission/useFormSubmission'
+import { useTranslation } from 'react-i18next';
 
 function AddCard({setContentData}) {
+
+  const { t } = useTranslation();
 
   const initialValues = {
     title: '',
@@ -52,7 +55,7 @@ function AddCard({setContentData}) {
          has had a chance to run its validation checks (maybe i think)
          */
         }
-        <input type="submit" value="Submit" disabled={!isValid || !isDirty} />
+        <input type="submit" value={t("Submit")} disabled={!isValid || !isDirty} />
       </form>
     </section>
   );

@@ -4,8 +4,11 @@ import useFormSubmission from '../useFormSubmission/useFormSubmission';
 import Input from '../shared/Input';
 import styles from './EditBlog.module.css'
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function EditBlog({contentData,setContentData}) {
+
+    const { t } = useTranslation();
 
     const { id } = useParams();
 
@@ -62,7 +65,7 @@ function EditBlog({contentData,setContentData}) {
              has had a chance to run its validation checks (maybe i think)
              */
             }
-            <input type="submit" value="Submit" disabled={!isValid || !isDirty} />
+            <input type="submit" value={t("Submit")} disabled={!isValid || !isDirty} />
           </form>
         </section>
       );

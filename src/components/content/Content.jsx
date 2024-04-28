@@ -9,8 +9,10 @@ import BlogsServices from '../../services/Blogs'
 import { Route, Routes } from 'react-router-dom';
 import Blog from '../blog/Blog';
 import EditBlog from '../editBlog/EditBlog';
+import { useTranslation } from 'react-i18next';
 
 function Content() {
+  const { t } = useTranslation();
 
   const [contentData, setContentData] = useState([]);
 
@@ -30,7 +32,7 @@ function Content() {
          <Routes>
         <Route path="/" element={
           <>
-            <Title  data={'Blogs'}/>
+            <Title  data={t('blogs')}/>
             <BlogsBox contentData={contentData} />
             <List contentData={contentData} setContentData={setContentData} />
           </>
@@ -38,7 +40,7 @@ function Content() {
 
         <Route path="/blogs" element={
           <>
-          <Title data={'Blogs'}/>
+          <Title data={t('blogs')}/>
           <BlogsBox contentData={contentData} />
           <List contentData={contentData} setContentData={setContentData} />
         </>
@@ -46,7 +48,7 @@ function Content() {
        
         <Route path="/addBlog" element={
           <>
-          <Title data={'Add Blog'}/>
+          <Title data={t("Add New Blog")}/>
           <AddCard contentData={contentData} setContentData={setContentData} />
           </>
           
@@ -60,7 +62,7 @@ function Content() {
 
         <Route path="/editBlog/:id" element={
           <>
-          <Title data={'Edit Blog'}/>
+          <Title data={t('Edit Blog')}/>
           <EditBlog contentData={contentData} setContentData={setContentData} />
           </>
           

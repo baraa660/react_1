@@ -8,10 +8,18 @@
     display: flex;
     align-items: center;
     padding: 30px 0;
+    justify-content: space-between;
 }
 
- 
+.logo_and_menu {
+    display: flex;
+    align-items: center; /* Centers logo and menu vertically */
+  }
 
+.logo, .menu {
+    display: flex;
+    align-items: center; /* This will vertically center the logo and menu items if they vary in height */
+  }
 
 .menu{
     margin-left:70px ;
@@ -24,6 +32,7 @@
 }
 .menu ul li{
     display: inline-block;
+    text-transform: uppercase;
 }
 .menu ul li a{
     text-decoration: none;
@@ -40,4 +49,21 @@
     font-size: 5px;
     margin-left: 6px;
     vertical-align: middle;
+    
 }
+
+.dropdown {
+    width: 140px;
+}
+
+.flag_icon {
+    display: inline-block;
+    
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+  }
+
+
+  

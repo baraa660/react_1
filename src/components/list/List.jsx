@@ -8,7 +8,7 @@ import filledDislike from '../../svg/dislike-filled.svg'
 import BlogsServices from '../../services/Blogs'
 import Edit from '../../svg/edit.svg'
 import { Link ,useNavigate,useSearchParams } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 import {
   Pagination,
   
@@ -17,6 +17,7 @@ import {
 function List({contentData , setContentData }) {
 
   const navigate= useNavigate();
+  const { t } = useTranslation();
 
   let [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get('page')) || 1;
@@ -32,8 +33,9 @@ function List({contentData , setContentData }) {
  
 
   const handlePagination=( value)=>{
-    setSearchParams(`page=${value}`)
+    setSearchParams(`page=${value}`) //or navigate(`/?page=${value}`)
   }
+
 
   return (
     <>
@@ -54,7 +56,7 @@ function List({contentData , setContentData }) {
                   {card.description.length > 100
                     ? `${card.description.slice(0, 100)}...`
                     : card.description}
-                  <Link to={`/blog/${card.id}`}>readmore</Link>
+                  <Link to={`/blog/${card.id}`}>{t("readmore")}</Link>
                 </p>
 
                 <div className={styles.action_buttons}>

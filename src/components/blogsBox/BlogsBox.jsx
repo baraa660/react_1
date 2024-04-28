@@ -1,8 +1,10 @@
 import React from 'react'
 import styles from './BlogsBox.module.css'
+import { useTranslation } from 'react-i18next';
 
 function BlogsBox({contentData}) {
 
+  const { t } = useTranslation();
 
     const totalLikes = contentData.reduce((sum, content) => sum + content.liked, 0);
     const totalUnlikes = contentData.reduce((sum, content) => sum + content.unliked, 0);
@@ -16,10 +18,10 @@ function BlogsBox({contentData}) {
     <div className={styles.blog_container}>
     <div className={styles.blog_box}>
       <div className={styles.count_container}>
-        <span className={styles.count}>Liked blogs: {totalLikes}</span>
+        <span className={styles.count}>{t("Liked blogs")}: {totalLikes}</span>
       </div>
       <div className={styles.count_container}>
-        <span className={styles.count}>Unliked blogs: {totalUnlikes}</span>
+        <span className={styles.count}>{t("Unliked blogs")}: {totalUnlikes}</span>
       </div>
     </div>
     </div>
