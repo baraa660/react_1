@@ -1,5 +1,5 @@
 {
-  "blogs": [
+  "blogsEn": [
     {
       "id": "92b1",
       "title": "Best Angular Admin Dashboard Templates of 2020",
@@ -20,74 +20,20 @@
       "description": "Creativity doesn’t just happen. The most inspired and innovative teams and individual designers need to be a part of a culture that enables forward-thinking, acceleration, and efficiency . It’s a…",
       "liked": 1,
       "unliked": 0
-    },
+    }
+  ],
+  "blogsAr": [
     {
-      "id": "aae0",
-      "title": "Baraa Bzoor",
-      "description": "baraa awad bzoor from raba-jenin-westBank",
-      "liked": 1,
+      "id": "9e7b",
+      "title": "براء ",
+      "description": "براء بزور",
+      "liked": 0,
       "unliked": 0
     },
     {
-      "id": "71d2",
-      "title": "Acwefwe",
-      "description": "wefw wfwdsf",
-      "liked": 0,
-      "unliked": 1
-    },
-    {
-      "id": "a8df",
-      "title": "Acwe fwdsdfs",
-      "description": "wefe ",
-      "liked": 0,
-      "unliked": 1
-    },
-    {
-      "id": "5f86",
-      "title": "Afwefwhuwqu uyqwdu ysuay cqijwnd i yci qiwud iquef",
-      "description": "cdcwe uhwef sha wedqwdqwd",
-      "liked": 1,
-      "unliked": 0
-    },
-    {
-      "id": "172d",
-      "title": "Asdswed",
-      "description": "wdqdasd",
-      "liked": 0,
-      "unliked": 1
-    },
-    {
-      "id": "04a6",
-      "title": "Adwde",
-      "description": "qwqw qwadsd qqwe ggg",
-      "liked": 0,
-      "unliked": 1
-    },
-    {
-      "id": "d22d",
-      "title": "Aadsd awqdasd",
-      "description": "asdwqd qiwudasi",
-      "liked": 0,
-      "unliked": 1
-    },
-    {
-      "id": "776a",
-      "title": "Asdw",
-      "description": "wdqd",
-      "liked": 0,
-      "unliked": 1
-    },
-    {
-      "id": "d47d",
-      "title": "Asd hytuyj",
-      "description": "gegrw yntg",
-      "liked": 0,
-      "unliked": 1
-    },
-    {
-      "id": "987e",
-      "title": "Afefw1",
-      "description": "wefe wefwdsdf",
+      "id": "1f90",
+      "title": "براء",
+      "description": "براء بزور",
       "liked": 0,
       "unliked": 0
     }

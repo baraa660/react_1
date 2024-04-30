@@ -2,12 +2,15 @@ import React  from 'react'
 import styles from './AddCard.module.css'
 import Input from '../shared/Input';
 import BlogsServices from '../../services/Blogs'
-import useFormSubmission from '../useFormSubmission/useFormSubmission'
+import useFormSubmission from '../../Hooks/useFormSubmission/useFormSubmission.js'
 import { useTranslation } from 'react-i18next';
+import { useData } from '../../DataContext/DataContext.jsx';
 
-function AddCard({setContentData}) {
+function AddCard() {
 
-  const { t } = useTranslation();
+  const { setContentData } = useData();
+
+  const { t ,i18n } = useTranslation();
 
   const initialValues = {
     title: '',
@@ -17,7 +20,12 @@ function AddCard({setContentData}) {
   };
 
   const onSubmitCallback = async (values) => {
-    await BlogsServices.handleSubmit(values, setContentData);
+    if(i18n.dir()=="ltr"){
+      await BlogsServices.handleSubmitEn(values, setContentData);
+    }
+    else{
+      await BlogsServices.handleSubmitAr(values, setContentData);
+    }
   };
 
   const {values,errors,onBlur,onChange,touched,onSubmit,isValid,isDirty} = useFormSubmission(initialValues, onSubmitCallback);   //custom hook 

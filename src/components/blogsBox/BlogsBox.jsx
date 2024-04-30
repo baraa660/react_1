@@ -1,8 +1,11 @@
 import React from 'react'
 import styles from './BlogsBox.module.css'
 import { useTranslation } from 'react-i18next';
+import { useData } from '../../DataContext/DataContext.jsx';
 
-function BlogsBox({contentData}) {
+function BlogsBox() {
+
+  const { contentData} = useData();
 
   const { t } = useTranslation();
 

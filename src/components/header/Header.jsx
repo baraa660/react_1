@@ -1,25 +1,27 @@
 import React from 'react'
 import styles from './Header.module.css'
 import dropdown from '../../svg/drop-down.svg'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+ 
 function Header() {
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  
 
   const options = [
     { value: 'en', label:<div><img src={"./UK_flag.png"} alt="EN" className={styles.flag_icon}/> English</div> },
-    { value: 'ar', label: <div><img src={"./Saudi_flag.png"} alt="EN" className={styles.flag_icon}/> العربية</div> }
+    { value: 'ar', label: <div><img src={"./Saudi_flag.png"} alt="AR" className={styles.flag_icon}/> العربية</div> }
   ];
 
 
 
   const handleSelect = (option) => {
-    
+  
     i18n.changeLanguage(option.value); // Language change function
-    document.body.dir = i18n.dir();//change document direction 
+    //document.body.dir = i18n.dir();//change document direction 
+    navigate("/")
   };
 
   return (

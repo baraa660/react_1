@@ -13,5 +13,6 @@
     "Title must be at most 50 characters": "Title must be at most 50 characters",
     "Title must start with a capital letter": "Title must start with a capital letter",
     "Description is required" : "Description is required",
-    "Description must be at most 500 characters": "Description must be at most 500 characters"
+    "Description must be at most 500 characters": "Description must be at most 500 characters",
+    "Blog Details":"Blog Details"
 }

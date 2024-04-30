@@ -1,8 +1,12 @@
 import { useFormik } from 'formik';
-import { addBlogSchema } from '../validation/Validate';
+import { addBlogSchemaEn, addBlogSchemaAr} from '../../components/validation/Validate';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next'
 
 function useFormSubmission(initialValues, onSubmitCallback) {
+
+  const { i18n } = useTranslation();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (values, formikBag) => {
@@ -21,7 +25,7 @@ function useFormSubmission(initialValues, onSubmitCallback) {
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
-    validationSchema: addBlogSchema,
+    validationSchema: i18n.dir() === "ltr" ? addBlogSchemaEn : addBlogSchemaAr,
   });
 
   

@@ -1,14 +1,17 @@
 import React from 'react'
 import BlogsServices from '../../services/Blogs';
-import useFormSubmission from '../useFormSubmission/useFormSubmission';
+import useFormSubmission from '../../Hooks/useFormSubmission/useFormSubmission.js';
 import Input from '../shared/Input';
 import styles from './EditBlog.module.css'
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useData } from '../../DataContext/DataContext.jsx';
 
-function EditBlog({contentData,setContentData}) {
+function EditBlog() {
 
-    const { t } = useTranslation();
+  const { contentData,setContentData } = useData();
+
+    const { t,i18n} = useTranslation();
 
     const { id } = useParams();
 
@@ -27,7 +30,11 @@ function EditBlog({contentData,setContentData}) {
 
     
       const onSubmitCallback = async (values) => {
-        await BlogsServices.handleEditBlog(id, values, setContentData, contentData);
+        if(i18n.dir()=="ltr"){  
+          await BlogsServices.handleEditBlogEn(id, values, setContentData, contentData);
+        }else{
+          await BlogsServices.handleEditBlogAr(id, values, setContentData, contentData);
+        }
       };
     
       const {values,errors,onBlur,onChange,touched,onSubmit,isValid,isDirty} = useFormSubmission(initialValues, onSubmitCallback);   //custom hook 

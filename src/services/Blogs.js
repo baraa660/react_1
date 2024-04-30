@@ -3,19 +3,31 @@ import axios from 'axios';
 
  class BlogsServices{
 
-    static async fetchData() {  
+  
+
+    static async fetchDataEn() { 
         try {
-          const response = await axios.get('http://localhost:3000/blogs');
-          return response.data;
+          const response = await axios.get('http://localhost:3000/blogsEn');
+          return response.data.reverse();
         } catch (error) {
           console.error('Error fetching data:', error);
           return []; // Return an empty array in case of error
         }
       }
 
-      static async handleSubmit(formData, setContentData) {   
+      static async fetchDataAr() {  
         try {
-          await axios.post('http://localhost:3000/blogs', formData);
+          const response = await axios.get('http://localhost:3000/blogsAr');
+          return response.data.reverse();
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          return []; // Return an empty array in case of error
+        }
+      }
+
+      static async handleSubmitEn(formData, setContentData) {   
+        try {
+          await axios.post('http://localhost:3000/blogsEn', formData);
     
           /*
           i fetched data and not just updated directly on contentdata array like updatedCards 
@@ -23,7 +35,25 @@ import axios from 'axios';
           and when fetch it will update the contentdata and get formData with id, this help me if 
           i wanted to delete formData after add it because i need the id to delete.
           */
-          const data = await this.fetchData();
+          const data = await this.fetchDataEn();
+          setContentData(data);
+    
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+
+      static async handleSubmitAr(formData, setContentData) {   
+        try {
+          await axios.post('http://localhost:3000/blogsAr', formData);
+    
+          /*
+          i fetched data and not just updated directly on contentdata array like updatedCards 
+          in deleteCards because if i pushed formData to array it will push it without the id, 
+          and when fetch it will update the contentdata and get formData with id, this help me if 
+          i wanted to delete formData after add it because i need the id to delete.
+          */
+          const data = await this.fetchDataAr();
           setContentData(data);
     
         } catch (error) {
@@ -32,9 +62,9 @@ import axios from 'axios';
       }
 
 
-    static async deleteCard(id, contentData, setContentData) {
+    static async deleteCardEn(id, contentData, setContentData) {
         try {
-          await axios.delete(`http://localhost:3000/blogs/${id}`);
+          await axios.delete(`http://localhost:3000/blogsEn/${id}`);
           const updatedCards = contentData.filter(card => card.id !== id);
           setContentData(updatedCards);
           
@@ -43,8 +73,42 @@ import axios from 'axios';
         }
       }
 
-      static async handleLike(id, setContentData, contentData) {
-        const url = `http://localhost:3000/blogs/${id}`;
+      static async deleteCardAr(id, contentData, setContentData) {
+        try {
+          await axios.delete(`http://localhost:3000/blogsAr/${id}`);
+          const updatedCards = contentData.filter(card => card.id !== id);
+          setContentData(updatedCards);
+          
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+
+      static async handleLikeEn(id, setContentData, contentData) {
+        const url = `http://localhost:3000/blogsEn/${id}`;
+        try {
+          const response = await axios.patch(url,  {
+            liked:1
+          });
+        
+          if (response.status !== 200) {
+            throw new Error('Failed to update card.');
+          }
+
+          //get the index of this ID
+          const index = contentData.findIndex(obj => obj.id === id)
+
+          contentData[index].liked = 1;
+
+          // the value updated but react will detect it only If I changed it with setcontentdata
+          setContentData([...contentData]);
+          
+        } catch (error) {
+          console.error('Error updating card:', error);
+        }
+      }
+      static async handleLikeAr(id, setContentData, contentData) {
+        const url = `http://localhost:3000/blogsAr/${id}`;
         try {
           const response = await axios.patch(url,  {
             liked:1
@@ -67,9 +131,33 @@ import axios from 'axios';
         }
       }
 
-      static async handleDisLike(id, setContentData , contentData) {
+      static async handleDisLikeEn(id, setContentData , contentData) {
+        const url = `http://localhost:3000/blogsEn/${id}`;
         
-        const url = `http://localhost:3000/blogs/${id}`;
+        try {
+          const response = await axios.patch(url,  {
+            unliked:1
+          });
+        
+          if (response.status !== 200) {
+            throw new Error('Failed to update card.');
+          }
+
+          //get the index of this ID
+          const index = contentData.findIndex(obj => obj.id === id)
+
+          contentData[index].unliked = 1;
+
+          // the value updated but react will detect it only If I changed it with setcontentdata
+          setContentData([...contentData]);
+          
+        } catch (error) {
+          console.error('Error updating card:', error);
+        }
+      }
+      static async handleDisLikeAr(id, setContentData , contentData) {
+        const url = `http://localhost:3000/blogsAr/${id}`;
+        
         try {
           const response = await axios.patch(url,  {
             unliked:1
@@ -92,8 +180,8 @@ import axios from 'axios';
         }
       }
 
-      static async handleEditBlog(id, formData, setContentData, contentData) {  
-        const url = `http://localhost:3000/blogs/${id}`; 
+      static async handleEditBlogEn(id, formData, setContentData, contentData) {  
+        const url = `http://localhost:3000/blogsEn/${id}`; 
 
        try {
           const response = await axios.patch(url,formData);
@@ -116,7 +204,34 @@ import axios from 'axios';
 
 
 
-    }}
+    }
+  
+    static async handleEditBlogAr(id, formData, setContentData, contentData) {  
+      const url = `http://localhost:3000/blogsAr/${id}`; 
+
+     try {
+        const response = await axios.patch(url,formData);
+        if (response.status !== 200) {
+          throw new Error('Failed to update card.');
+        }
+
+        //get the index of this ID
+        const index = contentData.findIndex(obj => obj.id === id)
+        
+        contentData[index] = {...formData,id:id};
+
+        // the value updated but react will detect it only If I changed it with setcontentdata
+        setContentData([...contentData]);
+
+        
+      } catch (error) {
+        console.error('Error updating card:', error);
+      }
+
+
+
+  }
+}
 
     export default BlogsServices;
 

@@ -8,17 +8,43 @@ import filledDislike from '../../svg/dislike-filled.svg'
 import BlogsServices from '../../services/Blogs'
 import Edit from '../../svg/edit.svg'
 import { Link, useNavigate, useParams } from "react-router-dom";
-function Blog({contentData , setContentData }) {
+import { useTranslation } from 'react-i18next';
+import { useData } from '../../DataContext/DataContext.jsx'
+function Blog() {
+
+  const { contentData,setContentData } = useData();
 
 
+    const {i18n } = useTranslation();
     const navigate = useNavigate();
     const { id } = useParams();
 
     const blogPost = contentData.find(post => post.id === id);
 
     const handleDelete =()=>{
-        BlogsServices.deleteCard(blogPost.id, contentData, setContentData)
+      if(i18n.dir()=="ltr"){
+        BlogsServices.deleteCardEn(id,contentData,setContentData )
+      }
+      else{
+        BlogsServices.deleteCardAr(id,contentData,setContentData )
+      }
         navigate('/blogs');
+    }
+
+    const handleLike =(id)=>{
+      if(i18n.dir()=="ltr"){
+        BlogsServices.handleLikeEn(id, setContentData, contentData);
+      }else{
+        BlogsServices.handleLikeAr(id, setContentData, contentData);
+      }
+    }
+  
+    const handleDisLike =(id)=>{
+      if(i18n.dir()=="ltr"){
+        BlogsServices.handleDisLikeEn(id, setContentData, contentData);
+      }else{
+        BlogsServices.handleDisLikeAr(id, setContentData, contentData);
+      }
     }
     
   return (
@@ -34,8 +60,8 @@ function Blog({contentData , setContentData }) {
               <div className={styles.action_buttons}>
               {blogPost.liked===0 && blogPost.unliked===0 ?
                 <div>
-                <button className={styles.like_button}><img src={like} alt=""  onClick={() => BlogsServices.handleLike(blogPost.id,setContentData,contentData)}/></button>
-                <button className={styles.like_button}><img src={dislike} alt="" width={15} height={15} onClick={() => BlogsServices.handleDisLike(blogPost.id,setContentData,contentData)} /></button>
+                <button className={styles.like_button}><img src={like} alt=""  onClick={() => handleLike(blogPost.id)}/></button>
+                <button className={styles.like_button}><img src={dislike} alt="" width={15} height={15} onClick={() => handleDisLike(blogPost.id)} /></button>
                 </div>
               
               :blogPost.liked===1?

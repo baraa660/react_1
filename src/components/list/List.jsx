@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './List.module.css'
 import trash from '../../svg/trash-icon.svg'
 import like from '../../svg/like.svg'
@@ -7,17 +7,20 @@ import filledLike from '../../svg/like-filled.svg'
 import filledDislike from '../../svg/dislike-filled.svg'
 import BlogsServices from '../../services/Blogs'
 import Edit from '../../svg/edit.svg'
-import { Link ,useNavigate,useSearchParams } from 'react-router-dom';
+import { Link ,useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   Pagination,
   
 } from '@workday/canvas-kit-react/pagination';
+import { useData } from '../../DataContext/DataContext.jsx'
 
-function List({contentData , setContentData }) {
+function List() {
 
-  const navigate= useNavigate();
-  const { t } = useTranslation();
+  const { contentData,setContentData } = useData();
+
+  //const navigate= useNavigate();
+  const { t, i18n } = useTranslation();
 
   let [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get('page')) || 1;
@@ -36,6 +39,33 @@ function List({contentData , setContentData }) {
     setSearchParams(`page=${value}`) //or navigate(`/?page=${value}`)
   }
 
+
+  const handleDelete=(id)=>{
+
+    if(i18n.dir()=="ltr"){
+      BlogsServices.deleteCardEn(id,contentData,setContentData )
+    }
+    else{
+      BlogsServices.deleteCardAr(id,contentData,setContentData )
+    }
+
+  }
+
+  const handleLike =(id)=>{
+    if(i18n.dir()=="ltr"){
+      BlogsServices.handleLikeEn(id, setContentData, contentData);
+    }else{
+      BlogsServices.handleLikeAr(id, setContentData, contentData);
+    }
+  }
+
+  const handleDisLike =(id)=>{
+    if(i18n.dir()=="ltr"){
+      BlogsServices.handleDisLikeEn(id, setContentData, contentData);
+    }else{
+      BlogsServices.handleDisLikeAr(id, setContentData, contentData);
+    }
+  }
 
   return (
     <>
@@ -67,11 +97,7 @@ function List({contentData , setContentData }) {
                           src={like}
                           alt=""
                           onClick={() =>
-                            BlogsServices.handleLike(
-                              card.id,
-                              setContentData,
-                              contentData
-                            )
+                            handleLike(card.id,)
                           }
                         />
                       </button>
@@ -82,11 +108,7 @@ function List({contentData , setContentData }) {
                           width={15}
                           height={15}
                           onClick={() =>
-                            BlogsServices.handleDisLike(
-                              card.id,
-                              setContentData,
-                              contentData
-                            )
+                            handleDisLike(card.id,)
                           }
                         />
                       </button>
@@ -133,13 +155,7 @@ function List({contentData , setContentData }) {
 
                   <button
                     className={styles.delete_btn}
-                    onClick={() =>
-                      BlogsServices.deleteCard(
-                        card.id,
-                        contentData,
-                        setContentData
-                      )
-                    }
+                    onClick={()=>handleDelete(card.id)}
                   >
                     <span className="">
                       <img
@@ -169,7 +185,7 @@ function List({contentData , setContentData }) {
           <Pagination.JumpToFirstButton aria-label="First" />
           <Pagination.StepToPreviousButton aria-label="Previous" />
           <Pagination.PageList>
-            {({ state }) =>
+          {({ state }) =>
               state.range.map((pageNumber) => (
                 <Pagination.PageListItem key={pageNumber}>
                   <Pagination.PageButton
